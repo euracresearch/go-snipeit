@@ -135,6 +135,7 @@ func (c *Client) AddOptions(s string, opt interface{}) (string, error) {
 type LocationOptions struct {
 	// Search string
 	Search string `url:"search,omitempty"`
+	Limit int `url:"limit,omitempty"`
 }
 
 // Location represents a Snipe-IT location.
