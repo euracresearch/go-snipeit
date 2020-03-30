@@ -216,8 +216,11 @@ func (c *Client) Location(id int64) (*Location, *http.Response, error) {
 // HardwareOptions specifies a subset of optional query parameters
 // for listing assets.
 type HardwareOptions struct {
-	LocationID int `url:"location_id,omitempty"`
-	CompanyID  int `url:"company_id,omitempty"`
+	Limit      int    `url:"limit,omitempty"`
+	Search     string `url:"search,omitempty"`
+	CategoryID int    `url:"categoryid,omitempty"`
+	LocationID int    `url:"location_id,omitempty"`
+	CompanyID  int    `url:"company_id,omitempty"`
 }
 
 // Hardware represents a Snipe-IT hardware object.
