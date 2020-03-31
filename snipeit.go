@@ -134,8 +134,11 @@ func (c *Client) AddOptions(s string, opt interface{}) (string, error) {
 // for listing locations.
 type LocationOptions struct {
 	// Search string
-	Search string `url:"search,omitempty"`
 	Limit  int    `url:"limit,omitempty"`
+	Offset int    `url:"offset,omitempty"`
+	Search string `url:"search,omitempty"`
+	Sort   string `url:"sort,omitempty"`
+	Order  string `url:"order,omitempty"`
 }
 
 // Location represents a Snipe-IT location.
@@ -213,11 +216,24 @@ func (c *Client) Location(id int64) (*Location, *http.Response, error) {
 	return l, resp, nil
 }
 
+
+
 // HardwareOptions specifies a subset of optional query parameters
 // for listing assets.
 type HardwareOptions struct {
-	LocationID int `url:"location_id,omitempty"`
-	CompanyID  int `url:"company_id,omitempty"`
+	Limit          int    `url:"limit,omitempty"`
+	Offset         int    `url:"offset,omitempty"`
+	Search         string `url:"search,omitempty"`
+	OrderNumber    string `url:"order_number,omitempty"`
+	Sort           string `url:"sort,omitempty"`
+	Order          string `url:"order,omitempty"`
+	ModelID        int    `url:"model_id,omitempty"`
+	CategoryID     int    `url:"category_id,omitempty"`
+	ManufacturerID int    `url:"manufacturer_id,omitempty"`
+	CompanyID      int    `url:"company_id,omitempty"`
+	LocationID     int    `url:"location_id,omitempty"`
+	Status         string `url:"status,omitempty"`
+	StatusID       string `url:"status_id,omitempty"`
 }
 
 // Hardware represents a Snipe-IT hardware object.
