@@ -249,10 +249,7 @@ type Hardware struct {
 		Name       string `json:"name,omitempty"`
 		StatusMeta string `json:"status_meta,omitempty"`
 	} `json:"status_label,omitempty"`
-	Category struct {
-		ID   int64  `json:"id,omitempty"`
-		Name string `json:"name,omitempty"`
-	} `json:"category,omitempty"`
+	Category     *Category `json:"category,omitempty"`
 	Manufacturer struct {
 		ID   int64  `json:"id,omitempty"`
 		Name string `json:"name,omitempty"`
@@ -261,16 +258,13 @@ type Hardware struct {
 		ID   int64  `json:"id,omitempty"`
 		Name string `json:"name,omitempty"`
 	} `json:"supplier,omitempty"`
-	Notes       string `json:"notes,omitempty"`
-	OrderNumber string `json:"order_number,omitempty"`
-	Company     string `json:"company,omitempty"`
-	Location    int64  `json:"location,omitempty"`
-	RtdLocation struct {
-		ID   int64  `json:"id,omitempty"`
-		Name string `json:"name,omitempty"`
-	} `json:"rtd_location,omitempty"`
-	Image      string `json:"image,omitempty"`
-	AssignedTo struct {
+	Notes       string    `json:"notes,omitempty"`
+	OrderNumber string    `json:"order_number,omitempty"`
+	Company     string    `json:"company,omitempty"`
+	Location    *Location `json:"location,omitempty"`
+	RtdLocation *Location `json:"rtd_location,omitempty"`
+	Image       string    `json:"image,omitempty"`
+	AssignedTo  struct {
 		ID        int64  `json:"id,omitempty"`
 		Username  string `json:"username,omitempty"`
 		Name      string `json:"name,omitempty"`
@@ -287,7 +281,7 @@ type Hardware struct {
 	PurchaseDate     Timestamp     `json:"purchase_date,omitempty"`
 	LastCheckout     Timestamp     `json:"last_checkout,omitempty"`
 	ExpectedCheckin  Timestamp     `json:"expected_checkin,omitempty"`
-	PurchaseCost     int64         `json:"purchase_cost,omitempty"`
+	PurchaseCost     string        `json:"purchase_cost,omitempty"`
 	UserCanCheckout  bool          `json:"user_can_checkout,omitempty"`
 	CustomFields     []interface{} `json:"custom_fields,omitempty"`
 	AvailableActions struct {
