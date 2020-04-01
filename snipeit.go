@@ -410,19 +410,23 @@ type Timestamp struct {
 	time.Time
 }
 
+type apiTimestamp struct {
+	Datetime string `json:"datetime"`
+	Format   string `json:"formatted"`
+}
+
 func (ts *Timestamp) UnmarshalJSON(b []byte) error {
-	var d struct {
-		Datetime string `json:"datetime"`
-		Format   string `json:"formatted"`
-	}
-	if err := json.Unmarshal(b, &d); err != nil {
+	d := &apiTimestamp{}
+	if err := json.Unmarshal(b, d); err != nil {
 		return err
 	}
-
+	if d.Datetime == "" {
+		return nil
+	}
 	const format = "2006-01-02 15:04:05"
 	t, err := time.Parse(format, d.Datetime)
 	if err != nil {
-		return err
+		return fmt.Errorf("go-snipeit: can not parse api timestamp: %v", err)
 	}
 	ts.Time = t
 	return nil
