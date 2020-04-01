@@ -133,7 +133,6 @@ func (c *Client) AddOptions(s string, opt interface{}) (string, error) {
 // LocationOptions specifies a subset of optional query parameters
 // for listing locations.
 type LocationOptions struct {
-	// Search string
 	Limit  int    `url:"limit,omitempty"`
 	Offset int    `url:"offset,omitempty"`
 	Search string `url:"search,omitempty"`
