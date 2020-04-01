@@ -75,7 +75,7 @@ func TestHardware(t *testing.T) {
 			"location_id": "1",
 		})
 
-		fmt.Fprint(w, `{"total":1, "rows": [{"id": 10, "name": "hardware", "location": 1}]}`)
+		fmt.Fprint(w, `{"total":1, "rows": [{"id": 10, "name": "hardware", "location": {"id": 1}}]}`)
 	})
 
 	opt := &HardwareOptions{
@@ -86,7 +86,7 @@ func TestHardware(t *testing.T) {
 		t.Errorf("Hardware returend error: %v", err)
 	}
 
-	var want = []*Hardware{{ID: 10, Name: "hardware", Location: 1}}
+	var want = []*Hardware{{ID: 10, Name: "hardware", Location: &Location{ID: 1}}}
 	if !reflect.DeepEqual(hardware, want) {
 		t.Errorf("Hardware returend %v, want %+v", hardware, want)
 	}
