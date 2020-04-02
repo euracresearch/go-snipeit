@@ -1,6 +1,7 @@
 # go-snipeit
 
-[![GoDoc](https://img.shields.io/static/v1?label=godoc&message=reference&color=blue)](https://godoc.org/github.com/euracresearch/go-snipeit)
+[![GoDoc](https://img.shields.io/static/v1?label=godoc&message=reference&color=blue)](https://pkg.go.dev/github.com/euracresearch/go-snipeit)
+![tests](https://github.com/euracresearch/go-snipeit/workflows/tests/badge.svg)
 
 go-snipeit is a Go client library for accessing the [SNIPE-IT API](https://snipe-it.readme.io/reference).
 
