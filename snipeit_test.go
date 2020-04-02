@@ -6,7 +6,6 @@ package snipeit
 
 import (
 	"encoding/json"
-	"fmt"
 	"log"
 	"net/http"
 	"net/http/httptest"
@@ -23,117 +22,6 @@ var (
 	mux        *http.ServeMux // mux is the HTTP request multiplexer used with the test server.
 	testClient *Client
 )
-
-func TestLocations(t *testing.T) {
-	mux.HandleFunc("/locations", func(w http.ResponseWriter, r *http.Request) {
-		testMethod(t, r, http.MethodGet)
-		testHeaders(t, r)
-		testFormValues(t, r, map[string]string{
-			"search": "Test",
-		})
-
-		fmt.Fprint(w, `{"total":1,"rows":[{"id": 1, "name": "Test"}]}`)
-	})
-
-	opt := &LocationOptions{
-		Search: "Test",
-	}
-	locations, _, err := testClient.Locations(opt)
-	if err != nil {
-		t.Errorf("Locations returend error: %v", err)
-	}
-
-	var want = []*Location{{ID: 1, Name: "Test"}}
-	if !reflect.DeepEqual(locations, want) {
-		t.Errorf("Locations returned %v, want %+v", locations, want)
-	}
-}
-
-func TestLocation(t *testing.T) {
-	mux.HandleFunc("/locations/1", func(w http.ResponseWriter, r *http.Request) {
-		testMethod(t, r, http.MethodGet)
-		testHeaders(t, r)
-		fmt.Fprint(w, `{"id": 1, "name": "Test"}`)
-	})
-
-	location, _, err := testClient.Location(1)
-	if err != nil {
-		t.Errorf("Location returned error: %v", err)
-	}
-
-	var want = &Location{ID: 1, Name: "Test"}
-	if !reflect.DeepEqual(location, want) {
-		t.Errorf("Location returned %v, want %+v", location, want)
-	}
-}
-
-func TestHardware(t *testing.T) {
-	mux.HandleFunc("/hardware", func(w http.ResponseWriter, r *http.Request) {
-		testMethod(t, r, http.MethodGet)
-		testHeaders(t, r)
-		testFormValues(t, r, map[string]string{
-			"location_id": "1",
-		})
-
-		fmt.Fprint(w, `{"total":1, "rows": [{"id": 10, "name": "hardware", "location": {"id": 1}}]}`)
-	})
-
-	opt := &HardwareOptions{
-		LocationID: 1,
-	}
-	hardware, _, err := testClient.Hardware(opt)
-	if err != nil {
-		t.Errorf("Hardware returend error: %v", err)
-	}
-
-	var want = []*Hardware{{ID: 10, Name: "hardware", Location: &Location{ID: 1}}}
-	if !reflect.DeepEqual(hardware, want) {
-		t.Errorf("Hardware returend %v, want %+v", hardware, want)
-	}
-}
-
-func TestCategories(t *testing.T) {
-	mux.HandleFunc("/categories", func(w http.ResponseWriter, r *http.Request) {
-		testMethod(t, r, http.MethodGet)
-		testHeaders(t, r)
-		testFormValues(t, r, map[string]string{
-			"search": "Test",
-		})
-
-		fmt.Fprint(w, `{"total":1,"rows":[{"id": 1, "name": "Test"}]}`)
-	})
-
-	opt := &CategoryOptions{
-		Search: "Test",
-	}
-	categories, _, err := testClient.Categories(opt)
-	if err != nil {
-		t.Errorf("Categories returend error: %v", err)
-	}
-
-	var want = []*Category{{ID: 1, Name: "Test"}}
-	if !reflect.DeepEqual(categories, want) {
-		t.Errorf("Categories returned %v, want %+v", categories, want)
-	}
-}
-
-func TestCategory(t *testing.T) {
-	mux.HandleFunc("/categories/1", func(w http.ResponseWriter, r *http.Request) {
-		testMethod(t, r, http.MethodGet)
-		testHeaders(t, r)
-		fmt.Fprint(w, `{"id": 1, "name": "Test"}`)
-	})
-
-	category, _, err := testClient.Category(1)
-	if err != nil {
-		t.Errorf("Categories returned error: %v", err)
-	}
-
-	var want = &Category{ID: 1, Name: "Test"}
-	if !reflect.DeepEqual(category, want) {
-		t.Errorf("Categories returned %v, want %+v", category, want)
-	}
-}
 
 func TestTimestampJSONUnmarshal(t *testing.T) {
 	in := `{
