@@ -65,17 +65,21 @@ type Hardware struct {
 		Emplyee   string `json:"employee_number,omitempty"`
 		Type      string `json:"type,omitempty"`
 	} `json:"assigned_to,omitempty"`
-	WarrantyMonths   interface{}   `json:"warranty_months,omitempty"`
-	WarrantyExpires  interface{}   `json:"warranty_expires,omitempty"`
-	CreatedAt        Timestamp     `json:"created_at,omitempty"`
-	UpdatedAt        Timestamp     `json:"updated_at,omitempty"`
-	DeletedAt        Timestamp     `json:"deleted_at,omitempty"`
-	PurchaseDate     Timestamp     `json:"purchase_date,omitempty"`
-	LastCheckout     Timestamp     `json:"last_checkout,omitempty"`
-	ExpectedCheckin  Timestamp     `json:"expected_checkin,omitempty"`
-	PurchaseCost     string        `json:"purchase_cost,omitempty"`
-	UserCanCheckout  bool          `json:"user_can_checkout,omitempty"`
-	CustomFields     []interface{} `json:"custom_fields,omitempty"`
+	WarrantyMonths  interface{} `json:"warranty_months,omitempty"`
+	WarrantyExpires interface{} `json:"warranty_expires,omitempty"`
+	CreatedAt       Timestamp   `json:"created_at,omitempty"`
+	UpdatedAt       Timestamp   `json:"updated_at,omitempty"`
+	DeletedAt       Timestamp   `json:"deleted_at,omitempty"`
+	PurchaseDate    Timestamp   `json:"purchase_date,omitempty"`
+	LastCheckout    Timestamp   `json:"last_checkout,omitempty"`
+	ExpectedCheckin Timestamp   `json:"expected_checkin,omitempty"`
+	PurchaseCost    string      `json:"purchase_cost,omitempty"`
+	UserCanCheckout bool        `json:"user_can_checkout,omitempty"`
+	CustomFields    map[string]struct {
+		Field       string `json:"field,omitempty"`
+		Value       string `json:"value,omitempty"`
+		FieldFormat string `json:"field_format,omitempty"`
+	} `json:"custom_fields,omitempty"`
 	AvailableActions struct {
 		Checkout bool `json:"checkout,omitempty"`
 		Checkin  bool `json:"checkin,omitempty"`
