@@ -89,8 +89,14 @@ func (c *Client) Do(req *http.Request, v interface{}) (*http.Response, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer resp.Body.Close()
 
+	// If StatusCode is not in the 200 range something went wrong, return the
+	// response but do not process it's body.
+	if c := resp.StatusCode; 200 > c || c > 299 {
+		return resp, nil
+	}
+
+	defer resp.Body.Close()
 	if v != nil {
 		if w, ok := v.(io.Writer); ok {
 			io.Copy(w, resp.Body)
