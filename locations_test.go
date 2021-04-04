@@ -1,5 +1,4 @@
 // Copyright 2020 Eurac Research. All rights reserved.
-//
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
@@ -28,7 +27,7 @@ func TestLocations(t *testing.T) {
 	}
 	locations, _, err := testClient.Locations(opt)
 	if err != nil {
-		t.Errorf("Locations returend error: %v", err)
+		t.Errorf("Locations returned error: %v", err)
 	}
 
 	var want = []*Location{{ID: 1, Name: "Test"}}

@@ -1,7 +1,7 @@
 // Copyright 2020 Eurac Research. All rights reserved.
-//
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
+
 package snipeit
 
 import (
@@ -58,7 +58,7 @@ func testHeaders(t *testing.T, r *http.Request) {
 
 	for _, tc := range h {
 		if got := r.Header.Get(tc.key); got != tc.want {
-			t.Errorf("Header.Get(%q) returend %q, want %q", tc.key, got, tc.want)
+			t.Errorf("Header.Get(%q) returned %q, want %q", tc.key, got, tc.want)
 		}
 	}
 }

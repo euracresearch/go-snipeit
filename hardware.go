@@ -1,5 +1,4 @@
 // Copyright 2020 Eurac Research. All rights reserved.
-//
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
@@ -7,8 +6,8 @@ package snipeit
 
 import "net/http"
 
-// HardwareOptions specifies a subset of optional query parameters
-// for listing assets.
+// HardwareOptions specifies a subset of optional query parameters for listing
+// assets.
 type HardwareOptions struct {
 	Limit          int    `url:"limit,omitempty"`
 	Offset         int    `url:"offset,omitempty"`
@@ -62,7 +61,7 @@ type Hardware struct {
 		Name      string `json:"name,omitempty"`
 		Firstname string `json:"first_name,omitempty"`
 		Lastname  string `json:"last_name,omitempty"`
-		Emplyee   string `json:"employee_number,omitempty"`
+		Employee  string `json:"employee_number,omitempty"`
 		Type      string `json:"type,omitempty"`
 	} `json:"assigned_to,omitempty"`
 	WarrantyMonths  interface{} `json:"warranty_months,omitempty"`
