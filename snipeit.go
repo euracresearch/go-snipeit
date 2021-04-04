@@ -1,10 +1,9 @@
 // Copyright 2020 Eurac Research. All rights reserved.
-//
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
-//
-// Package snipeit provides a client for communicating with the
-// Snipe-IT API and defines Snipe-IT specific data types.
+
+// Package snipeit provides a client for communicating with the Snipe-IT API and
+// defines Snipe-IT specific data types.
 package snipeit
 
 import (
@@ -30,9 +29,8 @@ type Client struct {
 	BaseURL *url.URL
 }
 
-// NewClient returns a new Snipe-IT API client with provided base
-// URL.  If base URL does not have a trailing slash, one is added
-// automatically.
+// NewClient returns a new Snipe-IT API client with provided base URL. If base
+// URL does not have a trailing slash, one is added automatically.
 func NewClient(baseURL, token string) (*Client, error) {
 	if baseURL == "" {
 		return nil, errors.New("a baseURL must be provided")
@@ -114,8 +112,8 @@ func (c *Client) Do(req *http.Request, v interface{}) (*http.Response, error) {
 	return resp, err
 }
 
-// AddOptions adds the parameters in opt as URL query parameters to
-// s. opt must be a struct whose fields may contain "url" tags.
+// AddOptions adds the parameters in opt as URL query parameters to s. opt must
+// be a struct whose fields may contain "url" tags.
 func (c *Client) AddOptions(s string, opt interface{}) (string, error) {
 	v := reflect.ValueOf(opt)
 	if v.Kind() == reflect.Ptr && v.IsNil() {
@@ -136,8 +134,8 @@ func (c *Client) AddOptions(s string, opt interface{}) (string, error) {
 	return u.String(), nil
 }
 
-// Timestamp is a custom time type for parsing Snipe-ITs API updated_at
-// and created_at JSON values.
+// Timestamp is a custom time type for parsing Snipe-ITs API updated_at and
+// created_at JSON values.
 type Timestamp struct {
 	time.Time
 }

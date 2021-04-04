@@ -1,5 +1,4 @@
 // Copyright 2020 Eurac Research. All rights reserved.
-//
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
@@ -10,8 +9,8 @@ import (
 	"net/http"
 )
 
-// CategoryOptions specifies a subset of optional query parameters
-// for listing categories.
+// CategoryOptions specifies a subset of optional query parameters for listing
+// categories.
 type CategoryOptions struct {
 	Limit  int    `url:"limit,omitempty"`
 	Offset int    `url:"offset,omitempty"`
@@ -42,7 +41,7 @@ type Category struct {
 	} `json:"available_actions,omitempty"`
 }
 
-// Category lists all categories.
+// Categories lists all categories.
 //
 // Snipe-IT API doc: https://snipe-it.readme.io/reference#categories-1
 func (c *Client) Categories(opt *CategoryOptions) ([]*Category, *http.Response, error) {

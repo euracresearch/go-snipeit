@@ -1,5 +1,4 @@
 // Copyright 2020 Eurac Research. All rights reserved.
-//
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
@@ -28,11 +27,11 @@ func TestHardware(t *testing.T) {
 	}
 	hardware, _, err := testClient.Hardware(opt)
 	if err != nil {
-		t.Errorf("Hardware returend error: %v", err)
+		t.Errorf("Hardware returned error: %v", err)
 	}
 
 	var want = []*Hardware{{ID: 10, Name: "hardware", Location: &Location{ID: 1}}}
 	if !reflect.DeepEqual(hardware, want) {
-		t.Errorf("Hardware returend %v, want %+v", hardware, want)
+		t.Errorf("Hardware returned %v, want %+v", hardware, want)
 	}
 }

@@ -1,5 +1,4 @@
 // Copyright 2020 Eurac Research. All rights reserved.
-//
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
@@ -10,8 +9,8 @@ import (
 	"net/http"
 )
 
-// LocationOptions specifies a subset of optional query parameters
-// for listing locations.
+// LocationOptions specifies a subset of optional query parameters for listing
+// locations.
 type LocationOptions struct {
 	Limit  int    `url:"limit,omitempty"`
 	Offset int    `url:"offset,omitempty"`
