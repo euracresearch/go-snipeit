@@ -29,9 +29,21 @@ type Client struct {
 	BaseURL *url.URL
 }
 
-// NewClient returns a new Snipe-IT API client with provided base URL. If base
-// URL does not have a trailing slash, one is added automatically.
+// NewClient returns a new Snipe-IT API client with provided base URL
+// and token. It uses the default http.Client. If base URL does not
+// have a trailing slash, one is added automatically.
 func NewClient(baseURL, token string) (*Client, error) {
+	return newClient(nil, baseURL, token)
+}
+
+// NewClientWithHTTPClient creates a new Snipe-IT API client with
+// given custom http.Client and the provided base URL and token. If
+// base URL does not have a trailing slash, one is added automatically.
+func NewClientWithHTTPClient(httpClient *http.Client, baseURL, token string) (*Client, error) {
+	return newClient(httpClient, baseURL, token)
+}
+
+func newClient(httpClient *http.Client, baseURL, token string) (*Client, error) {
 	if baseURL == "" {
 		return nil, errors.New("a baseURL must be provided")
 	}
@@ -48,7 +60,10 @@ func NewClient(baseURL, token string) (*Client, error) {
 	}
 
 	c := new(Client)
-	c.client = http.DefaultClient
+	c.client = httpClient
+	if c.client == nil {
+		c.client = &http.Client{}
+	}
 	c.token = "Bearer " + token
 	c.BaseURL = baseEndpoint
 	return c, nil
