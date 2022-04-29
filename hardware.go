@@ -74,7 +74,7 @@ type Hardware struct {
 	ExpectedCheckin Timestamp   `json:"expected_checkin,omitempty"`
 	PurchaseCost    string      `json:"purchase_cost,omitempty"`
 	UserCanCheckout bool        `json:"user_can_checkout,omitempty"`
-	CustomFields    map[string]struct {
+	CustomFields    []struct {
 		Field       string `json:"field,omitempty"`
 		Value       string `json:"value,omitempty"`
 		FieldFormat string `json:"field_format,omitempty"`
