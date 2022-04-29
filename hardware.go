@@ -51,7 +51,10 @@ type Hardware struct {
 	} `json:"supplier,omitempty"`
 	Notes       string    `json:"notes,omitempty"`
 	OrderNumber string    `json:"order_number,omitempty"`
-	Company     string    `json:"company,omitempty"`
+	Company     struct {
+		ID   int64  `json:"id,omitempty"`
+		Name string `json:"name,omitempty"`
+	}
 	Location    *Location `json:"location,omitempty"`
 	RtdLocation *Location `json:"rtd_location,omitempty"`
 	Image       string    `json:"image,omitempty"`
