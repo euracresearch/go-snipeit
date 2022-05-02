@@ -49,8 +49,8 @@ type Hardware struct {
 		ID   int64  `json:"id,omitempty"`
 		Name string `json:"name,omitempty"`
 	} `json:"supplier,omitempty"`
-	Notes       string    `json:"notes,omitempty"`
-	OrderNumber string    `json:"order_number,omitempty"`
+	Notes       string `json:"notes,omitempty"`
+	OrderNumber string `json:"order_number,omitempty"`
 	Company     struct {
 		ID   int64  `json:"id,omitempty"`
 		Name string `json:"name,omitempty"`
