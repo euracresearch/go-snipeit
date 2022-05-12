@@ -9,15 +9,11 @@ import (
 	"net/http"
 )
 
-// CategoryOptions specifies a subset of optional query parameters for listing
-// categories.
-type CategoryOptions struct {
-	Limit  int    `url:"limit,omitempty"`
-	Offset int    `url:"offset,omitempty"`
-	Search string `url:"search,omitempty"`
-	Sort   string `url:"sort,omitempty"`
-	Order  string `url:"order,omitempty"`
-}
+// CategoriesService handles communication with the categories related methods
+// of the SnipeIT-API.
+//
+// Snipe-IT API doc: https://snipe-it.readme.io/reference/categories
+type CategoriesService service
 
 // Category represents a Snipe-IT category.
 type Category struct {
@@ -41,16 +37,26 @@ type Category struct {
 	} `json:"available_actions,omitempty"`
 }
 
+// CategoriesListOptions specifies a subset of optional query parameters for
+// listing categories.
+type CategoriesListOptions struct {
+	Limit  int    `url:"limit,omitempty"`
+	Offset int    `url:"offset,omitempty"`
+	Search string `url:"search,omitempty"`
+	Sort   string `url:"sort,omitempty"`
+	Order  string `url:"order,omitempty"`
+}
+
 // Categories lists all categories.
 //
 // Snipe-IT API doc: https://snipe-it.readme.io/reference#categories-1
-func (c *Client) Categories(opt *CategoryOptions) ([]*Category, *http.Response, error) {
-	u, err := c.AddOptions("categories", opt)
+func (s *CategoriesService) List(opt *CategoriesListOptions) ([]*Category, *http.Response, error) {
+	u, err := s.client.AddOptions("categories", opt)
 	if err != nil {
 		return nil, nil, err
 	}
 
-	req, err := c.NewRequest(http.MethodGet, u, nil)
+	req, err := s.client.NewRequest(http.MethodGet, u, nil)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -59,7 +65,7 @@ func (c *Client) Categories(opt *CategoryOptions) ([]*Category, *http.Response, 
 		Total int64
 		Rows  []*Category
 	}
-	resp, err := c.Do(req, &response)
+	resp, err := s.client.Do(req, &response)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -70,16 +76,16 @@ func (c *Client) Categories(opt *CategoryOptions) ([]*Category, *http.Response, 
 // Category by ID.
 //
 // Snipe-IT API doc: https://snipe-it.readme.io/reference#category
-func (c *Client) Category(id int64) (*Category, *http.Response, error) {
+func (s *CategoriesService) Get(id int64) (*Category, *http.Response, error) {
 	u := fmt.Sprintf("categories/%d", id)
 
-	req, err := c.NewRequest(http.MethodGet, u, nil)
+	req, err := s.client.NewRequest(http.MethodGet, u, nil)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	l := new(Category)
-	resp, err := c.Do(req, l)
+	resp, err := s.client.Do(req, l)
 	if err != nil {
 		return nil, resp, err
 	}

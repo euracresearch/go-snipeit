@@ -22,10 +22,10 @@ func TestCategories(t *testing.T) {
 		fmt.Fprint(w, `{"total":1,"rows":[{"id": 1, "name": "Test"}]}`)
 	})
 
-	opt := &CategoryOptions{
+	opt := &CategoriesListOptions{
 		Search: "Test",
 	}
-	categories, _, err := testClient.Categories(opt)
+	categories, _, err := testClient.Categories.List(opt)
 	if err != nil {
 		t.Errorf("Categories returned error: %v", err)
 	}
@@ -43,7 +43,7 @@ func TestCategory(t *testing.T) {
 		fmt.Fprint(w, `{"id": 1, "name": "Test"}`)
 	})
 
-	category, _, err := testClient.Category(1)
+	category, _, err := testClient.Categories.Get(1)
 	if err != nil {
 		t.Errorf("Categories returned error: %v", err)
 	}

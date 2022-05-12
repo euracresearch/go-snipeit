@@ -22,10 +22,10 @@ func TestLocations(t *testing.T) {
 		fmt.Fprint(w, `{"total":1,"rows":[{"id": 1, "name": "Test"}]}`)
 	})
 
-	opt := &LocationOptions{
+	opt := &LocationListOptions{
 		Search: "Test",
 	}
-	locations, _, err := testClient.Locations(opt)
+	locations, _, err := testClient.Location.List(opt)
 	if err != nil {
 		t.Errorf("Locations returned error: %v", err)
 	}
@@ -43,7 +43,7 @@ func TestLocation(t *testing.T) {
 		fmt.Fprint(w, `{"id": 1, "name": "Test"}`)
 	})
 
-	location, _, err := testClient.Location(1)
+	location, _, err := testClient.Location.Get(1)
 	if err != nil {
 		t.Errorf("Location returned error: %v", err)
 	}

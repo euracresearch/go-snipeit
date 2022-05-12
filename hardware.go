@@ -4,25 +4,15 @@
 
 package snipeit
 
-import "net/http"
+import (
+	"net/http"
+)
 
-// HardwareOptions specifies a subset of optional query parameters for listing
-// assets.
-type HardwareOptions struct {
-	Limit          int    `url:"limit,omitempty"`
-	Offset         int    `url:"offset,omitempty"`
-	Search         string `url:"search,omitempty"`
-	OrderNumber    string `url:"order_number,omitempty"`
-	Sort           string `url:"sort,omitempty"`
-	Order          string `url:"order,omitempty"`
-	ModelID        int    `url:"model_id,omitempty"`
-	CategoryID     int    `url:"category_id,omitempty"`
-	ManufacturerID int    `url:"manufacturer_id,omitempty"`
-	CompanyID      int    `url:"company_id,omitempty"`
-	LocationID     int    `url:"location_id,omitempty"`
-	Status         string `url:"status,omitempty"`
-	StatusID       string `url:"status_id,omitempty"`
-}
+// HardwareService handles communication with the hardware related methods of
+// the SnipeIT-API.
+//
+// https://snipe-it.readme.io/reference/hardware-list
+type HardwareService service
 
 // Hardware represents a Snipe-IT hardware object.
 type Hardware struct {
@@ -92,16 +82,34 @@ type Hardware struct {
 	} `json:"available_actions,omitempty"`
 }
 
+// HardwareListOptions specifies a subset of optional query parameters for
+// listing assets.
+type HardwareListOptions struct {
+	Limit          int    `url:"limit,omitempty"`
+	Offset         int    `url:"offset,omitempty"`
+	Search         string `url:"search,omitempty"`
+	OrderNumber    string `url:"order_number,omitempty"`
+	Sort           string `url:"sort,omitempty"`
+	Order          string `url:"order,omitempty"`
+	ModelID        int    `url:"model_id,omitempty"`
+	CategoryID     int    `url:"category_id,omitempty"`
+	ManufacturerID int    `url:"manufacturer_id,omitempty"`
+	CompanyID      int    `url:"company_id,omitempty"`
+	LocationID     int    `url:"location_id,omitempty"`
+	Status         string `url:"status,omitempty"`
+	StatusID       string `url:"status_id,omitempty"`
+}
+
 // Hardware lists all Hardware.
 //
 // https://snipe-it.readme.io/reference#hardware-list
-func (c *Client) Hardware(opt *HardwareOptions) ([]*Hardware, *http.Response, error) {
-	u, err := c.AddOptions("hardware", opt)
+func (s *HardwareService) List(opt *HardwareListOptions) ([]*Hardware, *http.Response, error) {
+	u, err := s.client.AddOptions("hardware", opt)
 	if err != nil {
 		return nil, nil, err
 	}
 
-	req, err := c.NewRequest(http.MethodGet, u, nil)
+	req, err := s.client.NewRequest(http.MethodGet, u, nil)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -110,7 +118,7 @@ func (c *Client) Hardware(opt *HardwareOptions) ([]*Hardware, *http.Response, er
 		Total int64
 		Rows  []*Hardware
 	}
-	resp, err := c.Do(req, &response)
+	resp, err := s.client.Do(req, &response)
 	if err != nil {
 		return nil, resp, err
 	}

@@ -22,10 +22,10 @@ func TestHardware(t *testing.T) {
 		fmt.Fprint(w, `{"total":1, "rows": [{"id": 10, "name": "hardware", "location": {"id": 1}}]}`)
 	})
 
-	opt := &HardwareOptions{
+	opt := &HardwareListOptions{
 		LocationID: 1,
 	}
-	hardware, _, err := testClient.Hardware(opt)
+	hardware, _, err := testClient.Hardware.List(opt)
 	if err != nil {
 		t.Errorf("Hardware returned error: %v", err)
 	}

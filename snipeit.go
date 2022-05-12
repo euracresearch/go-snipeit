@@ -25,8 +25,18 @@ import (
 type Client struct {
 	client *http.Client // HTTP client used to communicate with the API.
 	token  string       // Snipe-IT API personal API token.
+	common service
 
 	BaseURL *url.URL
+
+	// Services used for talking to different parts of the SnipeIT-API.
+	Hardware   *HardwareService
+	Location   *LocationService
+	Categories *CategoriesService
+}
+
+type service struct {
+	client *Client
 }
 
 // NewClient returns a new Snipe-IT API client with provided base URL
@@ -66,6 +76,13 @@ func newClient(httpClient *http.Client, baseURL, token string) (*Client, error) 
 	}
 	c.token = "Bearer " + token
 	c.BaseURL = baseEndpoint
+	c.common.client = c
+
+	// services
+	c.Hardware = (*HardwareService)(&c.common)
+	c.Location = (*LocationService)(&c.common)
+	c.Categories = (*CategoriesService)(&c.common)
+
 	return c, nil
 }
 

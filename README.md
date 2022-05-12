@@ -51,11 +51,11 @@ func main() {
 		log.Fatal(err)
 	}
 
-	opts := &snipeit.HardwareOptions{
+	opts := &snipeit.HardwareListOptions{
 		Limit: 10,
 	}
 	// Retrieve all hardware limited to 10
-	hardware, _, err := client.Hardware(opts)
+	hardware, _, err := client.Hardware.List(opts)
 	if err != nil {
 		log.Fatal(err)
 	}
